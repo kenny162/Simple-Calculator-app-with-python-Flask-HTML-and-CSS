@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Calculator</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #dbeafe, #fef3c7);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("{{ url_for('static', filename='images/bg.jpg') }}");
+        }
+
+        .calculator {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        .calculator h2 {
+            margin-bottom: 20px;
+            color: #1e3a8a;
+        }
+
+        input, select, button {
+            width: 90%;
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0px 0px 6px rgba(37, 99, 235, 0.5);
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1e40af;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #047857;
+            font-weight: bold;
+        }
+
+        .history {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .history h3 {
+            margin-bottom: 5px;
+            color: #111827;
+        }
+
+        .history ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .history li {
+            background: #f3f4f6;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h2>🧮 Flask Calculator</h2>
+
+        <!-- Calculator form -->
+        <form method="POST">
+            <input type="text" name="num1" placeholder="First number" required>
+            <input type="text" name="num2" placeholder="Second number" required>
+
+            <select name="operation" required>
+                <option value="add">➕ Add</option>
+                <option value="subtract">➖ Subtract</option>
+                <option value="multiply">✖ Multiply</option>
+                <option value="divide">➗ Divide</option>
+            </select>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        <!-- Display result -->
+        {% if result %}
+            <div class="result">Result: {{ result }}</div>
+        {% endif %}
+
+        <!-- Display history -->
+        {% if history %}
+            <div class="history">
+                <h3>📜 History</h3>
+                <ul>
+                {% for item in history %}
+                    <li>{{ item }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
